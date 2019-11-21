@@ -1,9 +1,26 @@
 import React from 'react'
-import MenuBar from '../components/MenuBar.js'
+import MenuBar from '../components/MenuBar.js'  
 import { Profile, Photos, Cocktails, Pokemon} from '../components/Pages.js'
 
 class MainBox extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      menubarClick: Profile
+    }
+  }
 
+  divChange = (event) => {
+    const taps = {
+      "profile": Profile,
+      "photo": Photos,
+      "cocktail": Cocktails,
+      "pokemon": Pokemon
+    }
+    this.setState({
+      menubarClick: taps[event.target.id]
+    })
+  }
 
   render() {
 
@@ -13,12 +30,10 @@ class MainBox extends React.Component {
 
     */
 
-    const detailsToDisplay = <div>Hi, I'm a div!</div>
-
     return (
       <div>
-        <MenuBar />
-        {detailsToDisplay}
+        <MenuBar divChange={this.divChange} />
+        {this.state.menubarClick === Pokemon ? <Pokemon /> : this.state.menubarClick()}
       </div>
     )
   }
